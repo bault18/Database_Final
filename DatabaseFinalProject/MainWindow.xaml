@@ -5,16 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseFinalProject"
         mc:Ignorable="d"
-        Title="Whitnet" Height="400" Width="339" ResizeMode="CanMinimize" Icon="pack://application:,,,/Icon/Whitworth_University_Emblem.png">
+        Title="Whitnet" Height="400" Width="339" ResizeMode="CanMinimize">
 
     <DockPanel Name="login_doc_panel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
-        <DockPanel Name="login_titlebar" DockPanel.Dock="Top" Height="60" LastChildFill="True">
-            <DockPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF85001E" Offset="1"/>
-                    <GradientStop Color="#FFAD0323"/>
-                </LinearGradientBrush>
-            </DockPanel.Background>
+        <DockPanel Name="login_titlebar" DockPanel.Dock="Top" Height="60" LastChildFill="True" Background="#FFC21F31">
 
             <Image DockPanel.Dock="Left" Source="pack://application:,,,/Icon/Whitworth_University_Emblem.png"/>
             <TextBlock Name="Whitworth" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>

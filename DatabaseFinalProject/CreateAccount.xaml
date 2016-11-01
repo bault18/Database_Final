@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseFinalProject"
         mc:Ignorable="d"
-        Title="Whitnet" Height="500" Width="340" ResizeMode="CanMinimize" Icon="pack://application:,,,/Icon/Whitworth_University_Emblem.png">
+        Title="Whitnet" Height="500" Width="340" ResizeMode="CanMinimize">
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
         <DockPanel DockPanel.Dock="Top" Height="60">
