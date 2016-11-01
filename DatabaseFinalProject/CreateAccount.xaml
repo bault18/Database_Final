@@ -36,7 +36,7 @@
             <TextBlock Text="Note: You must login after creating the account to activate it" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             <TextBlock Text="First Name" Grid.Row="0" HorizontalAlignment="Center" TextDecorations="Underline" VerticalAlignment="Center" FontSize="18"/>
-            <TextBox Name="set_firstname" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center" Height="25" Width="100"/>
+            <TextBox Name="set_firstname" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center" Height="25" Width="100" />
 
             <TextBlock Text="Last Name" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" TextDecorations="Underline" VerticalAlignment="Center" FontSize="18"/>
             <TextBox Name="set_lastname" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center" Height="25" Width="100"/>

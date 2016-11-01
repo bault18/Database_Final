@@ -23,5 +23,25 @@ namespace DatabaseFinalProject
         {
             InitializeComponent();
         }
+
+        private void login_btn_press(object sender, RoutedEventArgs e)
+        {
+            //If login passes
+            if (Registrar.get_shared_instance().login(enter_user.Text, enter_pass.Text) == true)
+            {
+                //open next page and close login page
+                new RegistrationPage().Show();
+                this.Close();
+            }
+            else
+                MessageBox.Show("*******ERROR****** \nUsername or password is invalid.");
+        }
+
+        private void create_acc_press(object sender, RoutedEventArgs e)
+        {
+            new CreateAccount().Show();
+            this.Close();
+        }
+
     }
 }

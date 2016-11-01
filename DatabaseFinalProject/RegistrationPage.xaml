@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseFinalProject"
         mc:Ignorable="d"
-                Closing="Window_Closing"
+        Closing="Window_Closing"
         Title="Registration Page" Height="700" Width="1000" Icon="pack://application:,,,/Icon/Whitworth_University_Emblem.png">
 
     <DockPanel Name="main_dockpanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
