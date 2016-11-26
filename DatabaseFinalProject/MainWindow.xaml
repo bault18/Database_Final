@@ -10,8 +10,8 @@
     <DockPanel Name="login_doc_panel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
         <DockPanel Name="login_titlebar" DockPanel.Dock="Top" Height="60" LastChildFill="True" Background="#FFC21F31">
 
-            <Image DockPanel.Dock="Left" Source="pack://application:,,,/Icon/Whitworth_University_Emblem.png"/>
-            <TextBlock Name="Whitworth" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
+            <Image DockPanel.Dock="Left" Source="/Icon/Icon.jpg"/>
+            <TextBlock Name="Whitworth_banner" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
         </DockPanel>
         <Grid Name="login_grid">
             <Grid.ColumnDefinitions>
@@ -24,7 +24,9 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -34,8 +36,15 @@
             <TextBlock Text="Password" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20"/>
             <TextBox Name="enter_pass"  Grid.Column="1" Grid.Row="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="17"/>
 
-            <Button Name="create_acc_btn" Content="Create Account" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="create_acc_press" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF1D5AB2"/>
-            <Button Name="login_btn" Content="Login" Grid.Column="1" Grid.Row="5" Width="150" Height="50" FontSize="20" Click="login_btn_press" VerticalAlignment="Top" Background="#FFDDDDDD"/>
+            <TextBlock Text="User Type" Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20"/>
+            <ComboBox Name="AccType" Grid.Column="1" Grid.Row="5" Width="150" Height="30" VerticalAlignment="Top">
+                <ComboBoxItem Content="Student"/>
+                <ComboBoxItem Content="Professor"/>
+            </ComboBox>
+                      
+            
+            <Button Name="create_acc_btn" Content="Create Account" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="create_acc_press" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF1D5AB2"/>
+            <Button Name="login_btn" Content="Login" Grid.Column="1" Grid.Row="7" Width="150" Height="50" FontSize="20" Click="login_btn_press" VerticalAlignment="Top" Background="#FFDDDDDD"/>
         </Grid>
 
     </DockPanel>

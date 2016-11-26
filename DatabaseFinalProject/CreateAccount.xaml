@@ -8,15 +8,9 @@
         Title="Whitnet" Height="500" Width="340" ResizeMode="CanMinimize">
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
-        <DockPanel DockPanel.Dock="Top" Height="60">
-            <DockPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF85001E" Offset="1"/>
-                    <GradientStop Color="#FFAD0323"/>
-                </LinearGradientBrush>
-            </DockPanel.Background>
-            <Image DockPanel.Dock="Left" Source="pack://application:,,,/Icon/Whitworth_University_Emblem.png"/>
-            <TextBlock Name="Whitworth" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
+        <DockPanel DockPanel.Dock="Top" Height="60" Background="#FFC21F31">
+            <Image DockPanel.Dock="Left" Source="/Icon/Icon.jpg"/>
+            <TextBlock Name="Whitworth_banner" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
         </DockPanel>
 
 

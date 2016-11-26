@@ -1,0 +1,66 @@
+﻿<Window x:Class="DatabaseFinalProject.AdvisorsMainPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DatabaseFinalProject"
+        mc:Ignorable="d"
+        Title="Advisors Page" Height="700" Width="1000">
+
+    <DockPanel Name="Main_docpanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
+        <DockPanel Name="whitworth_banner" DockPanel.Dock="Top" Height="60" LastChildFill="True" Background="#FFC21F31">
+
+            <Image DockPanel.Dock="Left" Source="/Icon/Icon.jpg"/>
+            <TextBlock Name="Whitworth_banner" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
+        </DockPanel>
+        
+        <TabControl Name="tabControl">
+            <TabItem Header="Advisees">
+                <DockPanel Name="adviseeMainDoc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
+                    <DockPanel Name="bttnDoc" DockPanel.Dock="Left" Width="300">
+                        <Grid Name="bttnGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Instructions" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" TextDecorations="Underline"/>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" TextWrapping="Wrap" Text="   Select a single student from the right then select one of the buttons below to complete the action you want"/>
+
+                            <Button Name="moreInfoBttn" Content="More Information" Grid.Row="2" Width="120" Height="40" FontSize="15"/>
+                            <Button Name="dropBttn" Content="Remove Advisee" Grid.Row="4" Width="120" Height="40" FontSize="15" Background="#FFE24B4B"/>
+                        </Grid>
+                    </DockPanel>
+                    <ListView Name="advisees_list">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="First Name" Width="150" DisplayMemberBinding="{Binding ...}"/>
+                                <GridViewColumn Header="Last Name" Width="150" DisplayMemberBinding="{Binding ...}"/>
+                                <GridViewColumn Header="Num Credits" Width="100" DisplayMemberBinding="{Binding ...}"/>
+                                <GridViewColumn Header="Selet Student" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ...}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+
+                        </ListView.View>
+
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="Personal Info">
+                
+            </TabItem>
+
+        </TabControl>
+    </DockPanel>
+
+</Window>

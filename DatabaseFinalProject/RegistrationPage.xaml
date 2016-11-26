@@ -9,15 +9,10 @@
         Title="Registration Page" Height="700" Width="1000">
 
     <DockPanel Name="main_dockpanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
-        <DockPanel Name="whitworth_banner" DockPanel.Dock="Top" Height="60" LastChildFill="True">
-            <DockPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF85001E" Offset="1"/>
-                    <GradientStop Color="#FFAD0323"/>
-                </LinearGradientBrush>
-            </DockPanel.Background>
-            <Image DockPanel.Dock="Left" Source="pack://application:,,,/Icon/Whitworth_University_Emblem.png"/>
-            <TextBlock Name="Whitworth_University" Text="Whitworth University"  FontSize="40" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
+        <DockPanel Name="whitworth_banner" DockPanel.Dock="Top" Height="60" LastChildFill="True" Background="#FFC21F31">
+
+            <Image DockPanel.Dock="Left" Source="/Icon/Icon.jpg"/>
+            <TextBlock Name="Whitworth_banner" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
         </DockPanel>
         <TabControl Name="tabControl" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="Registered Classes" Name="update_reg_class">
