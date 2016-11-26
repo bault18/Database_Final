@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseFinalProject"
         mc:Ignorable="d"
-        Title="Whitnet" Height="400" Width="339" ResizeMode="CanMinimize">
+        Title="Whitnet" Height="420" Width="339" ResizeMode="CanMinimize">
 
     <DockPanel Name="login_doc_panel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
         <DockPanel Name="login_titlebar" DockPanel.Dock="Top" Height="60" LastChildFill="True" Background="#FFC21F31">
 
-            <Image DockPanel.Dock="Left" Source="/Icon/Icon.jpg"/>
+            <Image DockPanel.Dock="Left" Source="pack://application:,,,/Icon/Icon.jpg"/>
             <TextBlock Name="Whitworth_banner" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
         </DockPanel>
         <Grid Name="login_grid">
