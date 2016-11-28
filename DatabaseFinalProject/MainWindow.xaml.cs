@@ -27,7 +27,7 @@ namespace DatabaseFinalProject
         private void login_btn_press(object sender, RoutedEventArgs e)
         {
             //If login passes
-            if (Registrar.get_shared_instance().login(enter_user.Text, enter_pass.Text) == true)
+            if (Registrar.get_shared_instance().login(enter_user.Text, enter_pass.Password) == true)
             {
                 //open next page and close login page
                 new RegistrationPage().Show();
@@ -42,6 +42,5 @@ namespace DatabaseFinalProject
             new CreateAccount().Show();
             this.Close();
         }
-
     }
 }

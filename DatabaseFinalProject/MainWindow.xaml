@@ -34,8 +34,8 @@
             <TextBox Name="enter_user" Grid.Column="1" Grid.Row="1" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="17"/>
 
             <TextBlock Text="Password" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20"/>
-            <TextBox Name="enter_pass"  Grid.Column="1" Grid.Row="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="17"/>
-
+            <PasswordBox Name="enter_pass"  Grid.Column="1" Grid.Row="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="17" PasswordChar="*"/>
+            
             <TextBlock Text="User Type" Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20"/>
             <ComboBox Name="AccType" Grid.Column="1" Grid.Row="5" Width="150" Height="30" VerticalAlignment="Top">
                 <ComboBoxItem Content="Student"/>

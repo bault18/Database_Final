@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseFinalProject"
         mc:Ignorable="d"
-        Title="AdviseeInfo" Height="700" Width="1000">
+        Title="AdviseeInfo" Height="600" Width="900">
 
     <DockPanel Name="MainDockPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
         <DockPanel Name="whitworth_banner" DockPanel.Dock="Top" Height="60" LastChildFill="True" Background="#FFC21F31">
