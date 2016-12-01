@@ -15,6 +15,9 @@
         </DockPanel>
         
         <TabControl Name="tabControl">
+            <TabControl.Background>
+                <ImageBrush ImageSource="file:///C:/Users/bault18/Source/Repos/Database_Final2/DatabaseFinalProject/icon/flag.jpg" Opacity="0.1" Stretch="Uniform"/>
+            </TabControl.Background>
             <TabItem Header="Advisees">
                 <DockPanel Name="adviseeMainDoc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
                     <DockPanel Name="bttnDoc" DockPanel.Dock="Left" Width="300">
@@ -35,7 +38,7 @@
                             <Button Name="dropBttn" Content="Remove Advisee" Grid.Row="4" Width="120" Height="40" FontSize="15" Background="#FFE24B4B"/>
                         </Grid>
                     </DockPanel>
-                    <ListView Name="advisees_list">
+                    <ListView Name="advisees_list" Background="{x:Null}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="First Name" Width="150" DisplayMemberBinding="{Binding ...}"/>
