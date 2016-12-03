@@ -25,45 +25,25 @@ namespace DatabaseFinalProject
             InitializeComponent();
         }
 
-        //When user closes window
+        //When user closes window ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Don't think we need this anymore
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Save all data changed in current student
             Registrar.get_shared_instance().export_student_file();
         }
 
-        private void class_search(object sender, RoutedEventArgs e)
+        private void class_search(object sender, RoutedEventArgs e) //TODO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         {
-            //Resets checkboxes in search tab
-            foreach (Classes curr in Registrar.get_shared_instance().ALL_classes)
-                curr.IsChecked = false;
+            //create query link and get results
 
-            //Search stores all classes that meet search criteria
+            //parse results into Classes object
+
+            //push object into all search
             List<Classes> search = new List<Classes>();
+
+
             //all_class stores all the classes
             List<Classes> all_class = Registrar.get_shared_instance().ALL_classes;
-
-
-
-            //Searches all classes for criteria
-            for (int i = 0; i < all_class.Count; i++)
-            {
-                Classes current = all_class.ElementAt(i);
-                bool match_filter = true;
-
-                if (classType.Text != "")
-                    match_filter = current.Class_type == classType.Text;
-
-                if (match_filter == true && class_num_box.Text != "")
-                    match_filter = current.Class_num.Contains(class_num_box.Text);
-
-                if (match_filter == true && class_title_box.Text != "")
-                    match_filter = current.Class_name.Contains(class_title_box.Text);
-
-                //If the class fulfills all criteria add it to displaylist
-                if (match_filter)
-                    search.Add(current);
-            }
 
             //Displays list
             class_list_view.ItemsSource = search;
@@ -87,38 +67,49 @@ namespace DatabaseFinalProject
             //updates 'registered classes' tab
             if ("update_reg_class" == selected.Name)
             {
-                //Updates amount of credits registered for
-                credits_reg_for.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.update_credits());
-                //Updates amount of classes registered for
-                //num_class_reg_for.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.registered_classes().Count);
-
+                //Query # of credits registered for and push to 'credits_reg_for.Text'
+                
+                //Generate query link to get courses we are in
+                
+                //create object for each course
+                
+                //push courses into list and make that list get shown (see below) 
+               
+                /*
                 //Updates list of classes registered for
                 //registered_class_list_view.ItemsSource = Registrar.get_shared_instance().Curr_Stud.registered_classes();
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(registered_class_list_view.ItemsSource);
 
                 //Sort first by 'Class_type' then by 'Class_num'
                 view.SortDescriptions.Add(new SortDescription("Class_type", ListSortDirection.Ascending));
-                view.SortDescriptions.Add(new SortDescription("Class_num", ListSortDirection.Ascending));
+                view.SortDescriptions.Add(new SortDescription("Class_num", ListSortDirection.Ascending));*/
             }
             else if ("edit_acc_info_tab" == selected.Name)
             {
+                //query in student account info and populate the various text boxes
+                
+
+                /*
                 //Updates display of account information
                 change_f_name.Text = Registrar.get_shared_instance().Curr_Stud.F_name;
                 change_l_name.Text = Registrar.get_shared_instance().Curr_Stud.L_name;
                 change_username.Text = Registrar.get_shared_instance().Curr_Stud.Username;
                 
-                change_major.Text = Registrar.get_shared_instance().Curr_Stud.Major;
+                change_major.Text = Registrar.get_shared_instance().Curr_Stud.Major;*/
             }
         }
 
         //Updates 'Curr_Stud' to changed account info
         private void update_acc_btn(object sender, RoutedEventArgs e)
         {
+            //push changes to database
+
+            /*
             Registrar.get_shared_instance().Curr_Stud.F_name = change_f_name.Text;
             Registrar.get_shared_instance().Curr_Stud.L_name = change_l_name.Text;
             Registrar.get_shared_instance().Curr_Stud.Username = change_username.Text;
             
-            Registrar.get_shared_instance().Curr_Stud.Major = change_major.Text;
+            Registrar.get_shared_instance().Curr_Stud.Major = change_major.Text;*/
         }
 
 

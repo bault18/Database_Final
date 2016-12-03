@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Net;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DatabaseFinalProject
 {
@@ -26,8 +26,9 @@ namespace DatabaseFinalProject
         
         #endregion
 
-        public Student(string u_name, string first_n, string last_n, string maj, int phone, string em, string addres)
+        public Student(int iden, string u_name, string first_n, string last_n, string maj, int phone, string em, string addres)
         {
+            id = iden;
             username = u_name;
             f_name = first_n;
             l_name = last_n;
@@ -178,17 +179,18 @@ namespace DatabaseFinalProject
 
             using (var wc = new WebClient())
             {
-                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ISSUE HERE~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                //Run login query
                 var json = wc.DownloadString("http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=1&uname=" + user + "&pass=" + pass + "&utype=" + type);
-
-                //DEPENDING ON JSON WE SHOULD OPEN NEW PAGE
+                
+                //Test results if account exists
                 if (json == "[]")
-
                     return false;
                 else
                 {
-                    //Registrar.get_shared_instance().Curr_Stud = new Student(...);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    
+                    //Decode the JSON to create the student object
+                    dynamic result = JArray.Parse(json);
+
+                    curr_stud = new Student(result[0].id, user, result[0].First_Name, result[0].Last_Name, result[0].Major, result[0].Phone_Number, result[0].Email, result[0].Address);
                     return true;
                 }
 
