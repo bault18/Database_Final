@@ -4,32 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace DatabaseFinalProject
 {
     public class Student
     {
         #region Student Properties
+        private int id;
         private string f_name;
         private string l_name;
 
         private string username;
-        private string password;
 
         private string major;
+        private string address;
+        private int phone_number;
+        private string email;
 
-        //stores registered classes
-        private List<Classes> registered_for;
+        
         #endregion
 
-        public Student(string u_name, string p_word, string first_n, string last_n, string maj, List<Classes> imported)
+        public Student(string u_name, string first_n, string last_n, string maj, int phone, string em, string addres)
         {
-            username = u_name.Replace('_', ' ');
-            password = p_word.Replace('_', ' ');
-            f_name = first_n.Replace('_', ' ');
-            l_name = last_n.Replace('_', ' ');
-            major = maj.Replace('_', ' ');
-            registered_for = imported;
+            username = u_name;
+            f_name = first_n;
+            l_name = last_n;
+            major = maj;
+            phone_number = phone;
+            email = em;
+            address = addres;
         }
 
         #region Getters/Setters
@@ -37,17 +42,6 @@ namespace DatabaseFinalProject
         {
             get { return username; }
             set { username = value; }
-        }
-
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
-
-        public List<Classes> registered_classes()
-        {
-            return registered_for;
         }
 
         public string F_name
@@ -72,25 +66,16 @@ namespace DatabaseFinalProject
         public void add_class(Classes addit)
         {
             //check if already registered for class
-            foreach (Classes curr in registered_for)
-            {
-                if (addit != curr) { /*do nothing*/ }
-                else { return; }
-
-            }
-            registered_for.Add(addit);
+            
         }
         public void drop_class(Classes drop)
         {
-            registered_for.Remove(drop);
+            
         }
 
         public int update_credits()
         {
-            int credits = 0;
-            foreach (Classes cla in registered_for)
-                credits += Int32.Parse(cla.Credits);
-            return credits;
+            return 0;
         }
 
     }
@@ -159,7 +144,7 @@ namespace DatabaseFinalProject
 
         private Registrar()
         {
-            import_class_list();
+            //import_class_list();
         }
 
         private void import_class_list()
@@ -188,29 +173,25 @@ namespace DatabaseFinalProject
             set { curr_stud = value; }
         }
 
-        public bool login(string user, string pass)
+        public bool login(string user, string pass, string type)
         {
-            //Import student list from file
-            import_student_file();
 
-            //Sets curr_stud
-            foreach (var stud in all_students)
+            using (var wc = new WebClient())
             {
-                if (user == stud.Username)
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ISSUE HERE~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                var json = wc.DownloadString("http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=1&uname=" + user + "&pass=" + pass + "&utype=" + type);
+
+                //DEPENDING ON JSON WE SHOULD OPEN NEW PAGE
+                if (json == "[]")
+
+                    return false;
+                else
                 {
-                    curr_stud = stud;
-                    all_students.Remove(stud);
-                    break;
+                    //Registrar.get_shared_instance().Curr_Stud = new Student(...);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    
+                    return true;
                 }
-            }
 
-            //Test Password
-            if (curr_stud == null || curr_stud.Password != pass) //No student exists
-                return false;
-            else //Assume pass is true
-            {
-                import_class_list();
-                return true;
             }
         }
 
@@ -270,7 +251,7 @@ namespace DatabaseFinalProject
 
                         //Creates student
                         curr_stud_info = stud_info.Split(' ');
-                        all_students.Add(new Student(curr_stud_info[0], curr_stud_info[1], curr_stud_info[2], curr_stud_info[3], curr_stud_info[4], regsisteredfor));
+                        //all_students.Add(new Student(curr_stud_info[0], curr_stud_info[1], curr_stud_info[2], curr_stud_info[3], curr_stud_info[4], regsisteredfor));
                     } while (true);
                 }
             }
@@ -287,26 +268,7 @@ namespace DatabaseFinalProject
 
         public void export_student_file()
         {
-            //Add curent student to the list of students
-            all_students.Add(curr_stud);
 
-            //Open file of students
-            string filepath = Environment.CurrentDirectory + "\\StudentList.txt";
-            using (StreamWriter output = new StreamWriter(filepath))
-            {
-                //Export each student
-                foreach (Student curr in all_students)
-                {
-                    //Format each student data into one string to be exported line by line
-                    string student = curr.Username.Replace(' ', '_') + " " + curr.Password.Replace(' ', '_') + " " + curr.F_name.Replace(' ', '_') + " " + curr.L_name.Replace(' ', '_') + " " + curr.Major.Replace(' ', '_') + " * ";
-                    foreach (Classes reg_class in curr.registered_classes())
-                    {
-                        student += reg_class.Class_type + " " + reg_class.Class_num + " " + reg_class.Class_name.Replace(' ', '_') + " " + reg_class.Credits + " " + reg_class.Professor.Replace(' ', '_') + " ";
-                    }
-
-                    output.WriteLine(student);
-                }
-            }
         }
     }
 }

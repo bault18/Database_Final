@@ -90,10 +90,10 @@ namespace DatabaseFinalProject
                 //Updates amount of credits registered for
                 credits_reg_for.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.update_credits());
                 //Updates amount of classes registered for
-                num_class_reg_for.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.registered_classes().Count);
+                //num_class_reg_for.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.registered_classes().Count);
 
                 //Updates list of classes registered for
-                registered_class_list_view.ItemsSource = Registrar.get_shared_instance().Curr_Stud.registered_classes();
+                //registered_class_list_view.ItemsSource = Registrar.get_shared_instance().Curr_Stud.registered_classes();
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(registered_class_list_view.ItemsSource);
 
                 //Sort first by 'Class_type' then by 'Class_num'
@@ -106,7 +106,7 @@ namespace DatabaseFinalProject
                 change_f_name.Text = Registrar.get_shared_instance().Curr_Stud.F_name;
                 change_l_name.Text = Registrar.get_shared_instance().Curr_Stud.L_name;
                 change_username.Text = Registrar.get_shared_instance().Curr_Stud.Username;
-                change_password.Text = Registrar.get_shared_instance().Curr_Stud.Password;
+                
                 change_major.Text = Registrar.get_shared_instance().Curr_Stud.Major;
             }
         }
@@ -117,14 +117,14 @@ namespace DatabaseFinalProject
             Registrar.get_shared_instance().Curr_Stud.F_name = change_f_name.Text;
             Registrar.get_shared_instance().Curr_Stud.L_name = change_l_name.Text;
             Registrar.get_shared_instance().Curr_Stud.Username = change_username.Text;
-            Registrar.get_shared_instance().Curr_Stud.Password = change_password.Text;
+            
             Registrar.get_shared_instance().Curr_Stud.Major = change_major.Text;
         }
 
 
         //Adds and drops classes from 'Curr_Stud'
         private void add_drop_btn(object sender, RoutedEventArgs e)
-        {
+        {/*
             Button pressed = (Button)sender;
             List<Classes> drop_list = Registrar.get_shared_instance().Curr_Stud.registered_classes();
 
@@ -141,7 +141,7 @@ namespace DatabaseFinalProject
                 //Updates page info
                 tabControl.SelectedIndex = 1;
                 tabControl.SelectedIndex = 0;
-
+                
             }
             //if button is for adding classes
             else if (pressed.Name == "add_btn")
@@ -166,7 +166,7 @@ namespace DatabaseFinalProject
 
                 tabControl.SelectedIndex = 0;
             }
-        }
+        */}
 
     }
 }

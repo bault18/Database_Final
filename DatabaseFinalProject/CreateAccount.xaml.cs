@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Net;
 
 namespace DatabaseFinalProject
 {
@@ -29,16 +30,37 @@ namespace DatabaseFinalProject
             //if blank field
             if (set_username.Text == "" || set_password.Password == "" || set_firstname.Text == "" || set_lastname.Text == "" || set_major.Text == "")
                 MessageBox.Show("*****ERROR***** \nPlease fill out all fields");
-            /*if underscore used
-            else if (set_username.Text.Contains("_") || set_password.Password.Contains("_") || set_firstname.Text.Contains("_") || set_lastname.Text.Contains("_"))
-                MessageBox.Show("*****ERROR***** \nDo not use underscores");*/
-            //assume filled out correctly
             else
             {
+                string phone;
+                string address;
+                string email = null;
+                if (set_phone.Text == "")
+                    phone = null;
+                else
+                    phone = set_phone.Text;
+                if (set_address.Text == "")
+                    address = null;
+                else
+                    address = set_address.Text;
 
-                Registrar.get_shared_instance().Curr_Stud = new Student(set_username.Text, set_password.Password, set_firstname.Text, set_lastname.Text, set_major.Text, new List<Classes>());
-                new MainWindow().Show();
-                this.Close();
+                string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=2&fname=" + set_firstname.Text + "&lname=" + set_lastname.Text + "&uname=" + set_username.Text;
+                url += "&pass=" + set_password.Password + "&major=" + set_major.Text + "&phone_number=" + phone + "&email=" + email + "&address=" + address;
+
+                using (var wc = new WebClient())
+                {
+                    var output= wc.DownloadString(url); //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FIX ME~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                    if(output != "Complete")
+                    {
+                        MessageBox.Show("*****ERROR*****\nFailed to create account");
+                    }
+                    else
+                    {
+                        new MainWindow().Show();
+                        this.Close();
+                    }
+                }                
             }
         }
 

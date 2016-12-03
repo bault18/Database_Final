@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace DatabaseFinalProject
 {
@@ -27,9 +29,12 @@ namespace DatabaseFinalProject
         private void login_btn_press(object sender, RoutedEventArgs e)
         {
             //If login passes
-            if (Registrar.get_shared_instance().login(enter_user.Text, enter_pass.Password) == true)
+            if (AccType.Text == "")
             {
-                //open next page and close login page
+                MessageBox.Show("*****ERROR***** \nSelect an account type");
+            }
+            else if(Registrar.get_shared_instance().login(enter_user.Text, enter_pass.Password, AccType.Text))
+            {
                 new RegistrationPage().Show();
                 this.Close();
             }
