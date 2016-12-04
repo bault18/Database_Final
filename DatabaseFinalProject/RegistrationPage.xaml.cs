@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace DatabaseFinalProject
 {
@@ -25,33 +18,40 @@ namespace DatabaseFinalProject
             InitializeComponent();
         }
 
-        //When user closes window ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Don't think we need this anymore
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //Save all data changed in current student
-            Registrar.get_shared_instance().export_student_file();
-        }
-
         private void class_search(object sender, RoutedEventArgs e) //TODO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         {
             //create query link and get results
+            string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=3&dept=" + dept.Text + "&num=" + class_num.Text + "&name=" + class_title.Text + "&prof=" + prof.Text;
 
             //parse results into Classes object
-
-            //push object into all search
             List<Classes> search = new List<Classes>();
+            using (var wc = new WebClient())
+            {
+                var json = wc.DownloadString(url);
 
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FIX ME: get the actual professor for the class
+                string prof = string.Empty;
+                dynamic par = JArray.Parse(json);
+                foreach(dynamic tuple in par)
+                {
+                    string dep = tuple.Department; //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Issue with dep having whitespaces, not sorting properly
+                    int cnum = tuple.Course_Number;
+                    int sec = tuple.Section_Number;
+                    string name = tuple.Course_Name;
+                    int cred = tuple.Credits;
+                    int size = tuple.Size;
+                    search.Add(new Classes(dep, cnum, sec, name, cred, prof, size));
+                }
 
-            //all_class stores all the classes
-            List<Classes> all_class = Registrar.get_shared_instance().ALL_classes;
+            }
 
             //Displays list
             class_list_view.ItemsSource = search;
 
             //Sorts list that is dislayed
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(class_list_view.ItemsSource);
-            view.SortDescriptions.Add(new SortDescription("Class_type", ListSortDirection.Ascending));
-            view.SortDescriptions.Add(new SortDescription("Class_num", ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription("department", ListSortDirection.Ascending)); //~~~~~~~~~~~~~~~~~~~~~~FIX ME: Not working right now
+            view.SortDescriptions.Add(new SortDescription("class_number", ListSortDirection.Ascending));
 
             //if no results to display
             if (search.Count == 0)

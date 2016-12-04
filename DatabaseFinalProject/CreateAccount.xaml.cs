@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace DatabaseFinalProject
 {
@@ -32,24 +22,14 @@ namespace DatabaseFinalProject
                 MessageBox.Show("*****ERROR***** \nPlease fill out all fields");
             else
             {
-                string phone;
-                string address;
-                string email = null;
-                if (set_phone.Text == "")
-                    phone = null;
-                else
-                    phone = set_phone.Text;
-                if (set_address.Text == "")
-                    address = null;
-                else
-                    address = set_address.Text;
+
 
                 string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=2&fname=" + set_firstname.Text + "&lname=" + set_lastname.Text + "&uname=" + set_username.Text;
-                url += "&pass=" + set_password.Password + "&major=" + set_major.Text + "&phone_number=" + phone + "&email=" + email + "&address=" + address;
+                url += "&pass=" + set_password.Password + "&major=" + set_major.Text + "&phone_number=" + set_phone.Text + "&email=" + "&address=" + set_address.Text;
 
                 using (var wc = new WebClient())
                 {
-                    var output= wc.DownloadString(url); //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FIX ME~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    var output= wc.DownloadString(url);
 
                     if(output != "Complete")
                     {
@@ -62,6 +42,13 @@ namespace DatabaseFinalProject
                     }
                 }                
             }
+        }
+
+        //Credit to: http://stackoverflow.com/questions/1268552/how-do-i-get-a-textbox-to-only-accept-numeric-input-in-wpf
+        private void ValidateNumber(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         //if cancel btn clicked

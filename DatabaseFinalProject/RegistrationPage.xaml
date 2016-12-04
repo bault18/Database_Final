@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseFinalProject"
         mc:Ignorable="d"
-        Closing="Window_Closing"
         Title="Registration Page" Height="700" Width="1000">
 
     <DockPanel Name="main_dockpanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
@@ -16,7 +15,7 @@
         </DockPanel>
         <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged">
             <TabControl.Background>
-                <ImageBrush ImageSource="file:///C:/Users/bault18/Source/Repos/Database_Final2/DatabaseFinalProject/icon/flag.jpg" Opacity="0.1" Stretch="Uniform"/>
+                <ImageBrush ImageSource="file:///C:/Users/bault18/Source/Repos/Database_Final/DatabaseFinalProject/icon/flag.jpg" Opacity="0.1" Stretch="Uniform"/>
             </TabControl.Background>
             <TabItem Header="Registered Classes" x:Name="update_reg_class">
                 <Grid x:Name="registered_classes_grid">
@@ -83,8 +82,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Class Department"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="72,0" Grid.ColumnSpan="2"/>
-                        <ComboBox x:Name="classType"  Grid.Row="1" Width="60" Height="30" FontSize="15" HorizontalAlignment="Center" Grid.Column="1">
+                        <TextBlock Text="Class Department"  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="72,0" Grid.ColumnSpan="2"/>
+                        <ComboBox x:Name="dept"  Grid.Row="0" Width="60" Height="30" FontSize="15" HorizontalAlignment="Center" Grid.Column="1">
                             <ComboBoxItem Content=""/>
                             <ComboBoxItem Content="AR"/>
                             <ComboBoxItem Content="BI"/>
@@ -101,12 +100,14 @@
                             <ComboBoxItem Content="TA"/>
                         </ComboBox>
 
-                        <TextBlock Text="Class Number" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="top" FontSize="20" Grid.Column="1" />
-                        <TextBox x:Name="class_num_box" Width="64" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="20" Grid.Column="1"/>
+                        <TextBlock Text="Class Number" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="top" FontSize="20" Grid.Column="1" />
+                        <TextBox x:Name="class_num" Width="64" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="20" Grid.Column="1"/>
 
-                        <TextBlock Text="Class Title Contains" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="top" FontSize="20" Grid.ColumnSpan="2" Margin="65,0"/>
+                        <TextBlock Text="Professor" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
+                        <TextBox Name="prof" Width="200" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <TextBlock Text="Class Title Contains" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="top" FontSize="20"/>
                         <TextBlock Text ="ex. 'Intro to'" Grid.Row="3" HorizontalAlignment="Center" FontSize="15" Height="50" Margin="111,60,111,90" Grid.RowSpan="2"/>
-                        <TextBox x:Name="class_title_box" Width="290" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="class_title" Width="290" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" HorizontalContentAlignment="Center"/>
 
                         <Button x:Name="seach_classes_btn" Content="Update Search" Grid.Row="4" Width="100" Height="50" Click="class_search" Grid.Column="1" Background="#FFDDDDDD"/>
                         <Button x:Name="add_btn" Content="Register for Selected Classes" Grid.Row="5" Width="200" Height="50" Click="add_drop_btn"/>
@@ -115,11 +116,13 @@
                     <ListView x:Name="class_list_view" Grid.Column="1" Background="{x:Null}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Department" DisplayMemberBinding="{Binding Class_type}"/>
-                                <GridViewColumn Header="Class #" DisplayMemberBinding="{Binding Class_num}" />
-                                <GridViewColumn Header="Class Name" DisplayMemberBinding="{Binding Class_name}" Width="200"/>
-                                <GridViewColumn Header="Credits" DisplayMemberBinding="{Binding Credits}"/>
-                                <GridViewColumn Header="Professor" DisplayMemberBinding="{Binding Professor}" Width="100"/>
+                                <GridViewColumn Header="Department" DisplayMemberBinding="{Binding Department}"/>
+                                <GridViewColumn Header="Class #" DisplayMemberBinding="{Binding Class_number}" />
+                                <GridViewColumn Header="Section" DisplayMemberBinding="{Binding Section}"/>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                                <GridViewColumn Header="Credits" DisplayMemberBinding="{Binding Credits}" />
+                                <GridViewColumn Header="Professor" DisplayMemberBinding="{Binding Professor}"/>
+                                <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}"/>
                                 <GridViewColumn Header="Register" Width="50">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>

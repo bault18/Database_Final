@@ -65,7 +65,8 @@
             </ComboBox>
 
             <TextBlock Text="Phone Number" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextDecorations="Underline" FontSize="18"/>
-            <TextBox Name="set_phone" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="23" Width="130"/>
+            <TextBox Name="set_phone" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="23" Width="130" PreviewTextInput="ValidateNumber"/>
+            
             
             <Button Name="cancel_acc_btn" Content="Cancel" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="cancel_acc_creation" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF1D5AB2"/>
             <Button Content="Create Account" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Center" Click="create_acc_btn_press" Height="40" Width="130" FontSize="18" Background="#FFDDDDDD"/>
