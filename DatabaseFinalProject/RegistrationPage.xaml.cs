@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +24,7 @@ namespace DatabaseFinalProject
         private void class_search(object sender, RoutedEventArgs e) //TODO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         {
             //create query link and get results
-            string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=3&dept=" + dept.Text + "&num=" + class_num.Text + "&name=" + class_title.Text + "&prof=" + prof.Text;
+            string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=3&dept=" + dept.Text + "&num=" + class_num.Text + "&name=" + class_title.Text;
 
             //parse results into Classes object
             List<Classes> search = new List<Classes>();
@@ -29,8 +32,7 @@ namespace DatabaseFinalProject
             {
                 var json = wc.DownloadString(url);
 
-                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FIX ME: get the actual professor for the class
-                string prof = string.Empty;
+                
                 dynamic par = JArray.Parse(json);
                 foreach(dynamic tuple in par)
                 {
@@ -40,7 +42,9 @@ namespace DatabaseFinalProject
                     string name = tuple.Course_Name;
                     int cred = tuple.Credits;
                     int size = tuple.Size;
-                    search.Add(new Classes(dep, cnum, sec, name, cred, prof, prof, size));
+                    string p_fname = (tuple.First_Name == null) ? "Whitworth" : tuple.First_Name;
+                    string p_lname = (tuple.Last_Name == null) ? "Staff" : tuple.Last_Name;
+                    search.Add(new Classes(dep, cnum, sec, name, cred, p_fname, p_lname, size));
                 }
 
                 Registrar.get_shared_instance().Curr_search = search;
@@ -124,16 +128,14 @@ namespace DatabaseFinalProject
             }
             else if ("edit_acc_info_tab" == selected.Name)
             {
-                //query in student account info and populate the various text boxes
                 
-
-                /*
-                //Updates display of account information
-                change_f_name.Text = Registrar.get_shared_instance().Curr_Stud.F_name;
-                change_l_name.Text = Registrar.get_shared_instance().Curr_Stud.L_name;
+                display_f_name.Text = Registrar.get_shared_instance().Curr_Stud.F_name;
+                display_l_name.Text = Registrar.get_shared_instance().Curr_Stud.L_name;
+                display_id.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.ID);
+                change_major.Text = Registrar.get_shared_instance().Curr_Stud.Major;
+                update_phone.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.Phone_Number);
+                update_address.Text = Registrar.get_shared_instance().Curr_Stud.Address;
                 change_username.Text = Registrar.get_shared_instance().Curr_Stud.Username;
-                
-                change_major.Text = Registrar.get_shared_instance().Curr_Stud.Major;*/
             }
         }
 
@@ -141,13 +143,26 @@ namespace DatabaseFinalProject
         private void update_acc_btn(object sender, RoutedEventArgs e)
         {
             //push changes to database
+            string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=7&id=" + Registrar.get_shared_instance().Curr_Stud.ID + "&user=" + change_username.Text;
+            url += "&pass=" + change_password.Text + "&major=" + change_major.Text + "&address=" + update_address.Text + "&phone=" + update_phone.Text;
 
-            /*
-            Registrar.get_shared_instance().Curr_Stud.F_name = change_f_name.Text;
-            Registrar.get_shared_instance().Curr_Stud.L_name = change_l_name.Text;
-            Registrar.get_shared_instance().Curr_Stud.Username = change_username.Text;
+            using (var wc = new WebClient())
+            {
+                var output = wc.DownloadString(url);
+
+                if(output != "Complete")
+                    MessageBox.Show("*****ERROR***** \nCould not update account information");
+                else
+                {
+                    Registrar.get_shared_instance().Curr_Stud.Username = change_username.Text;
+                    Registrar.get_shared_instance().Curr_Stud.Address = update_address.Text;
+                    Registrar.get_shared_instance().Curr_Stud.Phone_Number = Int32.Parse(update_phone.Text);
+
+                    Registrar.get_shared_instance().Curr_Stud.Major = change_major.Text;
+                }
+            }
+
             
-            Registrar.get_shared_instance().Curr_Stud.Major = change_major.Text;*/
         }
 
 

@@ -74,6 +74,12 @@ namespace DatabaseFinalProject
             set { phone_number = value; }
         }
 
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }
+        }
+
         public List<Classes> Registered
         {
             get { return registered; }

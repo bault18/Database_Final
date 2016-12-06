@@ -9,7 +9,7 @@
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
         <DockPanel DockPanel.Dock="Top" Height="60" Background="#FFC21F31">
-            <Image DockPanel.Dock="Left" Source="/Icon/Icon.jpg"/>
+            <Image DockPanel.Dock="Left" Source="C:\Users\bault18\Source\Repos\Database_Final\DatabaseFinalProject\Icon\Icon.jpg"/>
             <TextBlock Name="Whitworth_banner" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
         </DockPanel>
 
