@@ -21,7 +21,7 @@ namespace DatabaseFinalProject
             InitializeComponent();
         }
 
-        private void class_search(object sender, RoutedEventArgs e) //TODO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        private void class_search(object sender, RoutedEventArgs e)
         {
             //create query link and get results
             string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=3&dept=" + dept.Text + "&num=" + class_num.Text + "&name=" + class_title.Text;
@@ -36,7 +36,7 @@ namespace DatabaseFinalProject
                 dynamic par = JArray.Parse(json);
                 foreach(dynamic tuple in par)
                 {
-                    string dep = tuple.Department; //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Issue with dep having whitespaces, not sorting properly
+                    string dep = tuple.Department;
                     int cnum = tuple.Course_Number;
                     int sec = tuple.Section_Number;
                     string name = tuple.Course_Name;
@@ -55,8 +55,8 @@ namespace DatabaseFinalProject
 
             //Sorts list that is dislayed
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(class_list_view.ItemsSource);
-            view.SortDescriptions.Add(new SortDescription("department", ListSortDirection.Ascending)); //~~~~~~~~~~~~~~~~~~~~~~FIX ME: Not working right now
-            view.SortDescriptions.Add(new SortDescription("class_number", ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription("Department", ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription("Class_number", ListSortDirection.Ascending));
 
             //if no results to display
             if (search.Count == 0)
@@ -120,8 +120,8 @@ namespace DatabaseFinalProject
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(registered_class_list_view.ItemsSource);
 
                 //Sort first by 'Class_type' then by 'Class_num'
-                view.SortDescriptions.Add(new SortDescription("Class_type", ListSortDirection.Ascending));
-                view.SortDescriptions.Add(new SortDescription("Class_num", ListSortDirection.Ascending));
+                view.SortDescriptions.Add(new SortDescription("Department", ListSortDirection.Ascending));
+                view.SortDescriptions.Add(new SortDescription("Class_number", ListSortDirection.Ascending));
 
                 credits_reg_for.Text = string.Format("{0}",num_cred);
                 num_class_reg_for.Text = string.Format("{0}", num_class);
