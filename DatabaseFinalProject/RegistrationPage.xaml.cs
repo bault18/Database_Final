@@ -40,9 +40,10 @@ namespace DatabaseFinalProject
                     string name = tuple.Course_Name;
                     int cred = tuple.Credits;
                     int size = tuple.Size;
-                    search.Add(new Classes(dep, cnum, sec, name, cred, prof, size));
+                    search.Add(new Classes(dep, cnum, sec, name, cred, prof, prof, size));
                 }
 
+                Registrar.get_shared_instance().Curr_search = search;
             }
 
             //Displays list
@@ -68,21 +69,58 @@ namespace DatabaseFinalProject
             if ("update_reg_class" == selected.Name)
             {
                 //Query # of credits registered for and push to 'credits_reg_for.Text'
-                
+
+
                 //Generate query link to get courses we are in
-                
+                string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=5&id=" + Registrar.get_shared_instance().Curr_Stud.ID;
                 //create object for each course
-                
+                List<Classes> registered = new List<Classes>();
+                int num_class = 0;
+                int num_cred = 0;
+
+                using (var wc = new WebClient())
+                {
+                    var json = wc.DownloadString(url);
+
+                    //If not registered for any courses do nothing
+                    if(json == "[]" || json == "null" || json == null)
+                    {}
+                    else
+                    {
+                        //Decode JSON to populate registered courses
+
+                        dynamic result = JArray.Parse(json);
+
+                        foreach(dynamic tuple in result)
+                        {
+                            string dept = tuple.Department;
+                            int cnum = tuple.Course_Number;
+                            int sect = tuple.Section_Number;
+                            string cname = tuple.Course_Name;
+                            int cred = tuple.Credits;
+                            string pfname = (tuple.First_Name == null) ? "Whitworth" : tuple.First_Name;
+                            string plname = (tuple.Last_Name == null) ? "Staff" : tuple.Last_Name;
+
+                            registered.Add(new Classes(dept, cnum, sect, cname, cred, pfname, plname, 0));
+
+                            num_class++;
+                            num_cred += cred;
+                        }
+                    }
+                }
+
+                Registrar.get_shared_instance().Curr_Stud.Registered = registered;
+
                 //push courses into list and make that list get shown (see below) 
-               
-                /*
-                //Updates list of classes registered for
-                //registered_class_list_view.ItemsSource = Registrar.get_shared_instance().Curr_Stud.registered_classes();
+                registered_class_list_view.ItemsSource = registered;
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(registered_class_list_view.ItemsSource);
 
                 //Sort first by 'Class_type' then by 'Class_num'
                 view.SortDescriptions.Add(new SortDescription("Class_type", ListSortDirection.Ascending));
-                view.SortDescriptions.Add(new SortDescription("Class_num", ListSortDirection.Ascending));*/
+                view.SortDescriptions.Add(new SortDescription("Class_num", ListSortDirection.Ascending));
+
+                credits_reg_for.Text = string.Format("{0}",num_cred);
+                num_class_reg_for.Text = string.Format("{0}", num_class);
             }
             else if ("edit_acc_info_tab" == selected.Name)
             {
@@ -115,18 +153,31 @@ namespace DatabaseFinalProject
 
         //Adds and drops classes from 'Curr_Stud'
         private void add_drop_btn(object sender, RoutedEventArgs e)
-        {/*
+        {
             Button pressed = (Button)sender;
-            List<Classes> drop_list = Registrar.get_shared_instance().Curr_Stud.registered_classes();
-
+            
+            
             //if button is for dropping classes
             if (pressed.Name == "drop_btn")
             {
+                List<Classes> drop = Registrar.get_shared_instance().Curr_Stud.Registered;
+
                 //Had to use for-loop otherwise crash
-                for (int i = drop_list.Count - 1; i >= 0; i--)
+                foreach(var course in drop)
                 {
-                    if (drop_list.ElementAt(i).IsChecked == true)
-                        Registrar.get_shared_instance().Curr_Stud.drop_class(drop_list.ElementAt(i));
+                    if(course.IsChecked == true)
+                    {
+                        string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=6&id=" + Registrar.get_shared_instance().Curr_Stud.ID;
+                        url += "&dept=" + course.Department + "&class_num=" + course.Class_number + "&sect=" + course.Section;
+
+                        using (var wc = new WebClient())
+                        {
+                            var result = wc.DownloadString(url);
+
+                            if (result != "Complete")
+                                MessageBox.Show("*****ERROR***** \nFailed to drop: " + course.Name);
+                        }
+                    }
                 }
 
                 //Updates page info
@@ -135,19 +186,26 @@ namespace DatabaseFinalProject
                 
             }
             //if button is for adding classes
-            else if (pressed.Name == "add_btn")
+            if (pressed.Name == "add_btn")
             {   //Add classes to student's registered classes
-                foreach (Classes curr in Registrar.get_shared_instance().ALL_classes)
+                
+
+                foreach(var course in Registrar.get_shared_instance().Curr_search)
                 {
-                    if (curr.IsChecked == true && (Registrar.get_shared_instance().Curr_Stud.update_credits() + Int32.Parse(curr.Credits)) < 18)
+                    if(course.IsChecked == true) //Update to not allow them to register past 18 credits~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     {
-                        curr.IsChecked = false;
-                        Registrar.get_shared_instance().Curr_Stud.add_class(curr);
-                    }
-                    else if (curr.IsChecked == true)
-                    {
-                        MessageBox.Show("\t\t*****NOTE*****\nYou have reached the maximum amount of \ncredits a fulltime student can register for");
-                        break;
+                        course.IsChecked = false;
+                        string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=4&id=" + Registrar.get_shared_instance().Curr_Stud.ID + "&dept=" + course.Department;
+                        url += "&class_num=" + course.Class_number + "&sect=" + course.Section;
+
+                        using (var wc = new WebClient())
+                        {
+                            var output = wc.DownloadString(url);
+
+                            //check for successful insertion
+                            if(output != "Complete")
+                                MessageBox.Show("*****ERROR***** \nFailed to register for course: " + course.Name);
+                        }
                     }
                 }
 
@@ -157,7 +215,7 @@ namespace DatabaseFinalProject
 
                 tabControl.SelectedIndex = 0;
             }
-        */}
+        }
 
     }
 }

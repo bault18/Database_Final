@@ -46,11 +46,13 @@
                     <ListView x:Name="registered_class_list_view" Grid.Column="1" Background="{x:Null}" >
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Department" DisplayMemberBinding="{Binding Class_type}"/>
-                                <GridViewColumn Header="Class #" DisplayMemberBinding="{Binding Class_num}" />
-                                <GridViewColumn Header="Class Name" DisplayMemberBinding="{Binding Class_name}" Width="200"/>
+                                <GridViewColumn Header="Department" DisplayMemberBinding="{Binding Department}"/>
+                                <GridViewColumn Header="Class #" DisplayMemberBinding="{Binding Class_number}" />
+                                <GridViewColumn Header="Section" DisplayMemberBinding="{Binding Section}"/>
+                                <GridViewColumn Header="Class Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
                                 <GridViewColumn Header="Credits" DisplayMemberBinding="{Binding Credits}"/>
-                                <GridViewColumn Header="Professor" DisplayMemberBinding="{Binding Professor}" Width="100"/>
+                                <GridViewColumn Header="Prof First" DisplayMemberBinding="{Binding P_fname}" Width="100"/>
+                                <GridViewColumn Header="Prof Last" DisplayMemberBinding="{Binding P_lname}" Width="100"/>
                                 <GridViewColumn Header="Drop" Width="50">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>

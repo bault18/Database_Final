@@ -20,13 +20,14 @@ namespace DatabaseFinalProject
 
         private string major;
         private string address;
-        private int phone_number;
+        private long phone_number;
         private string email;
 
+        private List<Classes> registered;
         
         #endregion
 
-        public Student(int iden, string u_name, string first_n, string last_n, string maj, int phone, string em, string addres)
+        public Student(int iden, string u_name, string first_n, string last_n, string maj, long phone, string em, string addres)
         {
             id = iden;
             username = u_name;
@@ -39,6 +40,10 @@ namespace DatabaseFinalProject
         }
 
         #region Getters/Setters
+
+        public int ID
+        { get { return id; } }
+
         public string Username
         {
             get { return username; }
@@ -61,6 +66,18 @@ namespace DatabaseFinalProject
         {
             get { return major; }
             set { major = value; }
+        }
+
+        public long Phone_Number
+        {
+            get { return phone_number; }
+            set { phone_number = value; }
+        }
+
+        public List<Classes> Registered
+        {
+            get { return registered; }
+            set { registered = value; }
         }
         #endregion
 
@@ -89,20 +106,22 @@ namespace DatabaseFinalProject
         private int section;
         private string name;
         private int credits;
-        private string professor;
+        private string pfname;
+        private string plname;
         private int size;
 
         private bool isChecked;
         #endregion
 
-        public Classes(string dept, int num, int sect, string nam, int cred, string prof, int sze)
+        public Classes(string dept, int num, int sect, string nam, int cred, string p_fname, string p_lname, int sze)
         {
             department = dept;
             class_number = num;
             section = sect;
             name = nam;
             credits = cred;
-            professor = prof;
+            pfname = p_fname;
+            plname = p_lname;
             size = sze;
             isChecked = false;
         }
@@ -123,8 +142,11 @@ namespace DatabaseFinalProject
         public int Credits
         { get { return credits; } }
 
-        public string Professor
-        { get { return professor; } }
+        public string P_fname
+        { get { return pfname; } }
+
+        public string P_lname
+        { get { return plname; } }
 
         public int Size
         { get { return size; } }
@@ -142,6 +164,7 @@ namespace DatabaseFinalProject
     {
         private static Student curr_stud = null;
         private static Registrar instance = null;
+        private List<Classes> curr_search = null;
 
         public static Registrar get_shared_instance()
         {
@@ -163,6 +186,12 @@ namespace DatabaseFinalProject
         {
             get { return curr_stud; }
             set { curr_stud = value; }
+        }
+
+        public List<Classes> Curr_search
+        {
+            get { return curr_search; }
+            set { curr_search = value; }
         }
 
         public bool login(string user, string pass, string type)
@@ -188,7 +217,7 @@ namespace DatabaseFinalProject
                     string major = result[0].Major;
 
                     //Deal with possible null values
-                    int phone = (result[0].Phone_Number == null) ? 0 : result[0].Phone_Number;
+                    long phone = (result[0].Phone_Number == null) ? 0 : result[0].Phone_Number;
                     String email = (result[0].Email == null) ? "teqwe" : result[0].Email;
                     String address = (result[0].Address == null) ? "asdfa" : result[0].Address;
                     
