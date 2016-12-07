@@ -72,11 +72,10 @@ namespace DatabaseFinalProject
             //updates 'registered classes' tab
             if ("update_reg_class" == selected.Name)
             {
-                //Query # of credits registered for and push to 'credits_reg_for.Text'
-
 
                 //Generate query link to get courses we are in
                 string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=5&id=" + Registrar.get_shared_instance().Curr_Stud.ID;
+
                 //create object for each course
                 List<Classes> registered = new List<Classes>();
                 int num_class = 0;
@@ -136,6 +135,7 @@ namespace DatabaseFinalProject
                 update_phone.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.Phone_Number);
                 update_address.Text = Registrar.get_shared_instance().Curr_Stud.Address;
                 change_username.Text = Registrar.get_shared_instance().Curr_Stud.Username;
+                update_success.Text = "";
             }
         }
 
@@ -156,9 +156,11 @@ namespace DatabaseFinalProject
                 {
                     Registrar.get_shared_instance().Curr_Stud.Username = change_username.Text;
                     Registrar.get_shared_instance().Curr_Stud.Address = update_address.Text;
-                    Registrar.get_shared_instance().Curr_Stud.Phone_Number = Int32.Parse(update_phone.Text);
+                    Registrar.get_shared_instance().Curr_Stud.Phone_Number = long.Parse(update_phone.Text);
 
                     Registrar.get_shared_instance().Curr_Stud.Major = change_major.Text;
+
+                    update_success.Text = "Updated";
                 }
             }
 
@@ -232,5 +234,65 @@ namespace DatabaseFinalProject
             }
         }
 
+        private void dept_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> depts = new List<string>();
+            depts.Add("");
+            //bring in all departments to populate dropdown box
+            using (var wc = new WebClient())
+            {
+                string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=8";
+
+                var json = wc.DownloadString(url);
+
+                if (json == "[]") { }//something bad happened
+                else
+                {
+                    dynamic result = JArray.Parse(json);
+
+                    foreach (var tuple in result)
+                    {
+                        string curr = tuple.Department;
+                        depts.Add(curr);
+                    }
+                }
+            }
+
+            var combo = sender as ComboBox;
+            combo.ItemsSource = depts;
+            combo.SelectedIndex = 0;
+        }
+
+        private void change_major_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> majors = new List<string>();
+            majors.Add("");
+            //bring in all departments to populate dropdown box
+            using (var wc = new WebClient())
+            {
+                string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=9";
+
+                var json = wc.DownloadString(url);
+
+                if (json == "[]") { }//something bad happened
+                else
+                {
+                    dynamic result = JArray.Parse(json);
+
+                    foreach (var tuple in result)
+                    {
+                        string curr = tuple.Major;
+                        majors.Add(curr);
+                    }
+                }
+            }
+
+            //
+
+            //assign values to combobox
+            var combo = sender as ComboBox;
+            combo.ItemsSource = majors;
+            combo.Text = Registrar.get_shared_instance().Curr_Stud.Major;
+        }
     }
 }

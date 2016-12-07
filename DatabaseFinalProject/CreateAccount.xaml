@@ -46,23 +46,7 @@
             <TextBox Name="set_address" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="23" Width="330"/>
 
             <TextBlock Text="Major*" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextDecorations="Underline" FontSize="18"/>
-            <ComboBox Name="set_major" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="150">
-                <ComboBoxItem Content="Art"/>
-                <ComboBoxItem Content="Biology"/>
-                <ComboBoxItem Content="Business"/>
-                <ComboBoxItem Content="Chemistry"/>
-                <ComboBoxItem Content="Communications"/>
-                <ComboBoxItem Content="Computer Science"/>
-                <ComboBoxItem Content="English"/>
-                <ComboBoxItem Content="History"/>
-                <ComboBoxItem Content="Kinesiology"/>
-                <ComboBoxItem Content="Mathematics"/>
-                <ComboBoxItem Content="Music"/>
-                <ComboBoxItem Content="Philosophy"/>
-                <ComboBoxItem Content="Political Science"/>
-                <ComboBoxItem Content="Physics"/>
-                <ComboBoxItem Content="Theology"/>
-            </ComboBox>
+            <ComboBox Name="set_major" Loaded="set_major_Loaded" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="150"/>
 
             <TextBlock Text="Phone Number" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextDecorations="Underline" FontSize="18"/>
             <TextBox Name="set_phone" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="23" Width="130" PreviewTextInput="ValidateNumber"/>

@@ -2,6 +2,13 @@
 using System.Windows.Input;
 using System.Net;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace DatabaseFinalProject
 {
@@ -58,5 +65,36 @@ namespace DatabaseFinalProject
             this.Close();
         }
 
+        private void set_major_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> majors = new List<string>();
+            majors.Add("");
+            //bring in all departments to populate dropdown box
+            using (var wc = new WebClient())
+            {
+                string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=9";
+
+                var json = wc.DownloadString(url);
+
+                if (json == "[]") { }//something bad happened
+                else
+                {
+                    dynamic result = JArray.Parse(json);
+
+                    foreach (var tuple in result)
+                    {
+                        string curr = tuple.Major;
+                        majors.Add(curr);
+                    }
+                }
+            }
+
+            //
+
+            //assign values to combobox
+            var combo = sender as ComboBox;
+            combo.ItemsSource = majors;
+            combo.SelectedIndex = 0;
+        }
     }
 }

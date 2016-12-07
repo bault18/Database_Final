@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseFinalProject"
         mc:Ignorable="d"
-        Title="Whitnet" Height="420" Width="339" ResizeMode="CanMinimize">
+        Title="Whitnet" Height="420" Width="340" ResizeMode="CanMinimize">
 
     <DockPanel Name="login_doc_panel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
         <DockPanel Name="login_titlebar" DockPanel.Dock="Top" Height="60" LastChildFill="True" Background="#FFC21F31">
