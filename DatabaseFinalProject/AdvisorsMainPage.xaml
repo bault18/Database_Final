@@ -14,11 +14,11 @@
             <TextBlock Name="Whitworth_banner" Text="Whitworth University" FontSize="30" FontFamily="Mongolian Baiti" VerticalAlignment="Center" Foreground="#FFFFEEEE"/>
         </DockPanel>
         
-        <TabControl Name="tabControl">
+        <TabControl Name="tabControl" SelectionChanged="tabControl_SelectionChanged">
             <TabControl.Background>
-                <ImageBrush ImageSource="file:///C:/Users/bault18/Source/Repos/Database_Final2/DatabaseFinalProject/icon/flag.jpg" Opacity="0.1" Stretch="Uniform"/>
+                <ImageBrush ImageSource="C:\Users\bault18\Source\Repos\Database_Final\DatabaseFinalProject\Icon\flag.jpg" Opacity="0.1" Stretch="Uniform"/>
             </TabControl.Background>
-            <TabItem Header="Advisees">
+            <TabItem Header="Advisees" Name="advisees">
                 <DockPanel Name="adviseeMainDoc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
                     <DockPanel Name="bttnDoc" DockPanel.Dock="Left" Width="300">
                         <Grid Name="bttnGrid">
@@ -35,19 +35,18 @@
                             <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" TextWrapping="Wrap" Text="   Select a single student from the right then select one of the buttons below to complete the action you want"/>
 
                             <Button Name="moreInfoBttn" Content="More Information" Grid.Row="2" Width="120" Height="40" FontSize="15"/>
-                            <Button Name="dropBttn" Content="Remove Advisee" Grid.Row="4" Width="120" Height="40" FontSize="15" Background="#FFE24B4B"/>
+                            <Button Name="dropBttn" Content="Remove Advisee" Grid.Row="4" Width="120" Height="40" FontSize="15" Background="#FFE24B4B" Click="dropBttn_Click"/>
                         </Grid>
                     </DockPanel>
                     <ListView Name="advisees_list" Background="{x:Null}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="First Name" Width="150" DisplayMemberBinding="{Binding ...}"/>
-                                <GridViewColumn Header="Last Name" Width="150" DisplayMemberBinding="{Binding ...}"/>
-                                <GridViewColumn Header="Num Credits" Width="100" DisplayMemberBinding="{Binding ...}"/>
-                                <GridViewColumn Header="Selet Student" Width="100">
+                                <GridViewColumn Header="First Name" Width="150" DisplayMemberBinding="{Binding F_name}"/>
+                                <GridViewColumn Header="Last Name" Width="150" DisplayMemberBinding="{Binding L_name}"/>
+                                <GridViewColumn Header="Select Student" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <CheckBox IsChecked="{Binding ...}"/>
+                                            <CheckBox IsChecked="{Binding IsChecked}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -59,7 +58,7 @@
                 </DockPanel>
             </TabItem>
 
-            <TabItem Header="Personal Info">
+            <TabItem Header="Personal Info" HorizontalAlignment="Right" Width="85">
                 
             </TabItem>
 

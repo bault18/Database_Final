@@ -22,6 +22,7 @@ namespace DatabaseFinalProject
         private string address;
         private long phone_number;
         private string email;
+        private bool isChecked;
 
         private List<Classes> registered;
         
@@ -37,6 +38,14 @@ namespace DatabaseFinalProject
             phone_number = phone;
             email = em;
             address = addres;
+        }
+
+        public Student(int Iden, string first_n, string last_n)
+        {
+            f_name = first_n;
+            l_name = last_n;
+            isChecked = false;
+            id = Iden;
         }
 
         #region Getters/Setters
@@ -85,17 +94,13 @@ namespace DatabaseFinalProject
             get { return registered; }
             set { registered = value; }
         }
-        #endregion
 
-        public void add_class(Classes addit)
+        public bool IsChecked
         {
-            //check if already registered for class
-            
+            get { return isChecked; }
+            set { isChecked = value; }
         }
-        public void drop_class(Classes drop)
-        {
-            
-        }
+        #endregion
 
         public int update_credits()
         {
@@ -165,12 +170,59 @@ namespace DatabaseFinalProject
         #endregion
     }
 
+    public class Professor
+    {
+        #region Professor Properties
+        private int id;
+        private string fname;
+        private string lname;
+        private string uname;
+        private List<Student> advisees;
+
+        #endregion
+
+        //constructor
+        public Professor(int iden, string first_name, string last_name, string username) {
+            id = iden;
+            fname = first_name;
+            lname = last_name;
+            uname = username;
+        }
+
+
+        #region Getter/Setter
+        public int ID
+        { get { return id; } }
+
+        public string Fname
+        { get { return fname; } }
+
+        public string Lname
+        { get { return lname; } }
+
+        public string Uname
+        {
+            get { return uname; }
+            set { uname = value; }
+        }
+
+        public List<Student> Advisees
+        {
+            get { return advisees; }
+            set { advisees = value; }
+        }
+
+        #endregion
+
+    }
 
     public class Registrar
     {
         private static Student curr_stud = null;
+        private static Professor curr_professor = null;
         private static Registrar instance = null;
         private List<Classes> curr_search = null;
+        private List<Student> selected_students = null;
 
         public static Registrar get_shared_instance()
         {
@@ -182,11 +234,6 @@ namespace DatabaseFinalProject
 
         //Constructor. Nothing needs to be done at the creation
         private Registrar(){}
-
-        private void import_class_list()
-        {
-
-        }
 
         public Student Curr_Stud
         {
@@ -200,36 +247,67 @@ namespace DatabaseFinalProject
             set { curr_search = value; }
         }
 
+        public List<Student> Selected_students
+        {
+            get { return selected_students; }
+            set { selected_students = value; }
+        }
+
+        public Professor Curr_Prof
+        {
+            get { return curr_professor; }
+            set { curr_professor = value; }
+        }
+
         public bool login(string user, string pass, string type)
         {
             using (var wc = new WebClient())
             {
-                //Run login query
-                var json = wc.DownloadString("http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=1&uname=" + user + "&pass=" + pass + "&utype=" + type);
-                
-                //Test results if account exists
-                if (json == "[]")
-                    return false;
+                if (type == "Student")
+                {
+                    //Run login query
+                    var json = wc.DownloadString("http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=1&uname=" + user + "&pass=" + pass + "&utype=" + type);
+
+                    //Test results if account exists
+                    if (json == "[]")
+                        return false;
+                    else
+                    {
+                        //Decode the JSON to create the student object
+                        dynamic result = JArray.Parse(json);
+
+                        //If we don't do this then for some reason it breaks when we try to create a new student
+                        int id = result[0].id;
+                        string fname = result[0].First_Name;
+                        string lname = result[0].Last_Name;
+                        string major = result[0].Major;
+
+                        //Deal with possible null values
+                        long phone = (result[0].Phone_Number == null) ? 0 : result[0].Phone_Number;
+                        String email = (result[0].Email == null) ? "" : result[0].Email;
+                        String address = (result[0].Address == null) ? "" : result[0].Address;
+
+
+                        curr_stud = new Student(id, user, fname, lname, major, phone, email, address);
+                        return true;
+                    }
+                }
                 else
                 {
-                    //Decode the JSON to create the student object
-                    dynamic result = JArray.Parse(json);
-                    dynamic cur = result[0];
+                    var json = wc.DownloadString("http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=10&uname=" + user + "&pass=" + pass);
 
-                    //If we don't do this then for some reason it breaks when we try to create a new student
-                    int id = result[0].id;
-                    string fname = result[0].First_Name;
-                    string lname = result[0].Last_Name;
-                    string major = result[0].Major;
+                    if (json == "[]")
+                        return false;
+                    else
+                    {
+                        dynamic result = JArray.Parse(json);
+                        int id = result[0].ID;
+                        string fname = result[0].First_Name;
+                        string lname = result[0].Last_name;
 
-                    //Deal with possible null values
-                    long phone = (result[0].Phone_Number == null) ? 0 : result[0].Phone_Number;
-                    String email = (result[0].Email == null) ? "teqwe" : result[0].Email;
-                    String address = (result[0].Address == null) ? "asdfa" : result[0].Address;
-                    
-
-                    curr_stud = new Student(id, user, fname, lname, major, phone, email, address);
-                    return true;
+                        curr_professor = new Professor(id, fname, lname, user);
+                        return true;
+                    }
                 }
 
             }

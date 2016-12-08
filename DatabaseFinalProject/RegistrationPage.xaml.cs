@@ -8,6 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Windows.Input;
+using System.Text.RegularExpressions;
 
 namespace DatabaseFinalProject
 {
@@ -24,7 +26,7 @@ namespace DatabaseFinalProject
         private void class_search(object sender, RoutedEventArgs e)
         {
             //create query link and get results
-            string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=3&dept=" + dept.Text + "&num=" + class_num.Text + "&name=" + class_title.Text;
+            string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=3&dept=" + dept_combo.Text + "&num=" + class_num.Text + "&name=" + class_title.Text;
 
             //parse results into Classes object
             List<Classes> search = new List<Classes>();
@@ -72,7 +74,6 @@ namespace DatabaseFinalProject
             //updates 'registered classes' tab
             if ("update_reg_class" == selected.Name)
             {
-
                 //Generate query link to get courses we are in
                 string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=5&id=" + Registrar.get_shared_instance().Curr_Stud.ID;
 
@@ -127,13 +128,13 @@ namespace DatabaseFinalProject
             }
             else if ("edit_acc_info_tab" == selected.Name)
             {
-                
+                //display proper information
                 display_f_name.Text = Registrar.get_shared_instance().Curr_Stud.F_name;
                 display_l_name.Text = Registrar.get_shared_instance().Curr_Stud.L_name;
                 display_id.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.ID);
                 change_major.Text = Registrar.get_shared_instance().Curr_Stud.Major;
-                update_phone.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.Phone_Number);
-                update_address.Text = Registrar.get_shared_instance().Curr_Stud.Address;
+                change_phone.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Stud.Phone_Number);
+                change_address.Text = Registrar.get_shared_instance().Curr_Stud.Address;
                 change_username.Text = Registrar.get_shared_instance().Curr_Stud.Username;
                 update_success.Text = "";
             }
@@ -144,7 +145,7 @@ namespace DatabaseFinalProject
         {
             //push changes to database
             string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=7&id=" + Registrar.get_shared_instance().Curr_Stud.ID + "&user=" + change_username.Text;
-            url += "&pass=" + change_password.Text + "&major=" + change_major.Text + "&address=" + update_address.Text + "&phone=" + update_phone.Text;
+            url += "&pass=" + change_password.Text + "&major=" + change_major.Text + "&address=" + change_address.Text + "&phone=" + change_phone.Text;
 
             using (var wc = new WebClient())
             {
@@ -154,10 +155,10 @@ namespace DatabaseFinalProject
                     MessageBox.Show("*****ERROR***** \nCould not update account information");
                 else
                 {
+                    //Keep changes in memory so we do not have to run another query
                     Registrar.get_shared_instance().Curr_Stud.Username = change_username.Text;
-                    Registrar.get_shared_instance().Curr_Stud.Address = update_address.Text;
-                    Registrar.get_shared_instance().Curr_Stud.Phone_Number = long.Parse(update_phone.Text);
-
+                    Registrar.get_shared_instance().Curr_Stud.Address = change_address.Text;
+                    Registrar.get_shared_instance().Curr_Stud.Phone_Number = long.Parse(change_phone.Text);
                     Registrar.get_shared_instance().Curr_Stud.Major = change_major.Text;
 
                     update_success.Text = "Updated";
@@ -197,7 +198,7 @@ namespace DatabaseFinalProject
                     }
                 }
 
-                //Updates page info
+                //Reload page with new info
                 tabControl.SelectedIndex = 1;
                 tabControl.SelectedIndex = 0;
                 
@@ -209,7 +210,7 @@ namespace DatabaseFinalProject
 
                 foreach(var course in Registrar.get_shared_instance().Curr_search)
                 {
-                    if(course.IsChecked == true) //Update to not allow them to register past 18 credits~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    if(course.IsChecked == true) //Update to not allow them to register past 18 credits~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     {
                         course.IsChecked = false;
                         string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=4&id=" + Registrar.get_shared_instance().Curr_Stud.ID + "&dept=" + course.Department;
@@ -234,14 +235,18 @@ namespace DatabaseFinalProject
             }
         }
 
-        private void dept_Loaded(object sender, RoutedEventArgs e)
+        private void load_combobox(object sender, RoutedEventArgs e)
         {
-            List<string> depts = new List<string>();
-            depts.Add("");
+            ComboBox combo = (ComboBox)sender;
+
+            List<string> items = new List<string>();
+            items.Add("");
             //bring in all departments to populate dropdown box
             using (var wc = new WebClient())
             {
-                string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=8";
+
+                string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=";
+                url += (combo.Name == "dept_combo") ? "8" : "9";
 
                 var json = wc.DownloadString(url);
 
@@ -252,47 +257,21 @@ namespace DatabaseFinalProject
 
                     foreach (var tuple in result)
                     {
-                        string curr = tuple.Department;
-                        depts.Add(curr);
+                        string curr = (combo.Name == "dept_combo") ? tuple.Department : tuple.Major;
+                        items.Add(curr);
                     }
                 }
             }
-
-            var combo = sender as ComboBox;
-            combo.ItemsSource = depts;
+            
+            combo.ItemsSource = items;
             combo.SelectedIndex = 0;
         }
 
-        private void change_major_Loaded(object sender, RoutedEventArgs e)
+        //Credit to: http://stackoverflow.com/questions/1268552/how-do-i-get-a-textbox-to-only-accept-numeric-input-in-wpf
+        private void ValidateNumber(object sender, TextCompositionEventArgs e)
         {
-            List<string> majors = new List<string>();
-            majors.Add("");
-            //bring in all departments to populate dropdown box
-            using (var wc = new WebClient())
-            {
-                string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=9";
-
-                var json = wc.DownloadString(url);
-
-                if (json == "[]") { }//something bad happened
-                else
-                {
-                    dynamic result = JArray.Parse(json);
-
-                    foreach (var tuple in result)
-                    {
-                        string curr = tuple.Major;
-                        majors.Add(curr);
-                    }
-                }
-            }
-
-            //
-
-            //assign values to combobox
-            var combo = sender as ComboBox;
-            combo.ItemsSource = majors;
-            combo.Text = Registrar.get_shared_instance().Curr_Stud.Major;
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

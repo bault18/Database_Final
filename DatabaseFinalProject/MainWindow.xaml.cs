@@ -33,9 +33,16 @@ namespace DatabaseFinalProject
             {
                 MessageBox.Show("*****ERROR***** \nSelect an account type");
             }
-            else if(Registrar.get_shared_instance().login(enter_user.Text, enter_pass.Password, AccType.Text))
+
+            bool yes = Registrar.get_shared_instance().login(enter_user.Text, enter_pass.Password, AccType.Text);
+            if (yes == true && AccType.Text == "Student")
             {
                 new RegistrationPage().Show();
+                this.Close();
+            }
+            else if (yes == true && AccType.Text == "Professor")
+            {
+                new AdvisorsMainPage().Show();
                 this.Close();
             }
             else

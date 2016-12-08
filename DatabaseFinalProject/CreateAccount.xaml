@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatabaseFinalProject"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Whitnet" Height="490" Width="380" ResizeMode="CanMinimize">
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
