@@ -180,7 +180,6 @@ namespace DatabaseFinalProject
             {
                 List<Classes> drop = Registrar.get_shared_instance().Curr_Stud.Registered;
 
-                //Had to use for-loop otherwise crash
                 foreach(var course in drop)
                 {
                     if(course.IsChecked == true)
@@ -205,9 +204,8 @@ namespace DatabaseFinalProject
             }
             //if button is for adding classes
             if (pressed.Name == "add_btn")
-            {   //Add classes to student's registered classes
-                
-
+            {   
+                //Add classes to student's registered classes
                 foreach(var course in Registrar.get_shared_instance().Curr_search)
                 {
                     if(course.IsChecked == true) //Update to not allow them to register past 18 credits~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -264,7 +262,7 @@ namespace DatabaseFinalProject
             }
             
             combo.ItemsSource = items;
-            combo.SelectedIndex = 0;
+            combo.Text = (combo.Name == "dept_combo") ? "" : Registrar.get_shared_instance().Curr_Stud.Major;
         }
 
         //Credit to: http://stackoverflow.com/questions/1268552/how-do-i-get-a-textbox-to-only-accept-numeric-input-in-wpf

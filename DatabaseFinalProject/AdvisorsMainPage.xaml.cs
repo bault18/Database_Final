@@ -27,34 +27,79 @@ namespace DatabaseFinalProject
         public AdvisorsMainPage()
         {
             InitializeComponent();
+            cancel_bttn.IsHitTestVisible = false;
+            confirm_bttn.IsHitTestVisible = false;
 
     }
 
         private void dropBttn_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Student stu in Registrar.get_shared_instance().Selected_students)
+            
+            //Swap button visibility and .... clickability?
+            dropBttn.Background = Brushes.White;
+            dropBttn.Foreground = Brushes.White;
+            dropBttn.BorderBrush = Brushes.White;
+            dropBttn.IsHitTestVisible = false;
+
+            confirm_bttn.BorderBrush = new SolidColorBrush(Color.FromRgb(112, 112, 112));
+            confirm_bttn.Background = new SolidColorBrush(Color.FromRgb(221, 221, 221));
+            confirm_bttn.Foreground = Brushes.Black;
+            confirm_bttn.IsHitTestVisible = true;
+
+            cancel_bttn.BorderBrush = new SolidColorBrush(Color.FromRgb(112, 112, 112));
+            cancel_bttn.Background = new SolidColorBrush(Color.FromRgb(221, 221, 221));
+            cancel_bttn.Foreground = Brushes.Black;
+            cancel_bttn.IsHitTestVisible = true;
+
+            confirm_text.Foreground = Brushes.Black;
+        }
+
+        private void confirm_deny_Click(object sender, RoutedEventArgs e)
+        {
+            Button bttn = (Button)sender;
+
+
+            if(bttn.Name == "confirm_bttn")
             {
-                if (stu.IsChecked == true)
+                foreach (Student stu in Registrar.get_shared_instance().Selected_students)
                 {
-                    stu.IsChecked = false;
-                    string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=12&sid=" + stu.ID;
-
-                    using (var wc = new WebClient())
+                    if (stu.IsChecked)
                     {
-                        var output = wc.DownloadString(url);
+                        stu.IsChecked = false;
+                        string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=12&sid=" + stu.ID;
 
-                        if (output != "Complete")
+                        using (var wc = new WebClient())
                         {
-                            MessageBox.Show("*****ERROR***** \nFailed to drop student.");
+                            var output = wc.DownloadString(url);
+
+                            if (output != "Complete")
+                                MessageBox.Show("*****ERROR***** \nFailed to drop student.");
                         }
-                       
                     }
                 }
+
+                //refresh list
+                tabControl.SelectedIndex = 1;
+                tabControl.SelectedIndex = 0;
             }
 
-            tabControl.SelectedIndex = 1;
-            tabControl.SelectedIndex = 0;
-            
+            //reset buttons
+            dropBttn.BorderBrush = new SolidColorBrush(Color.FromRgb(112, 112, 112));
+            dropBttn.Background = new SolidColorBrush(Color.FromRgb(226, 77, 77));
+            dropBttn.Foreground = Brushes.Black;
+            dropBttn.IsHitTestVisible = true;
+
+            confirm_bttn.BorderBrush = Brushes.White;
+            confirm_bttn.Background = Brushes.White;
+            confirm_bttn.Foreground = Brushes.White;
+            confirm_bttn.IsHitTestVisible = false;
+
+            cancel_bttn.BorderBrush = Brushes.White;
+            cancel_bttn.Background = Brushes.White;
+            cancel_bttn.Foreground = Brushes.White;
+            cancel_bttn.IsHitTestVisible = false;
+
+            confirm_text.Foreground = Brushes.White;
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -89,6 +134,16 @@ namespace DatabaseFinalProject
                 view.SortDescriptions.Add(new SortDescription("L_name", ListSortDirection.Ascending));
                 view.SortDescriptions.Add(new SortDescription("F_name", ListSortDirection.Ascending));
             }
+        }
+
+        private void moreInfoBttn_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(Student curr in Registrar.get_shared_instance().Selected_students)
+            {
+                if(curr.IsChecked)
+                    new AdviseeInfo(curr).Show();
+            }
+
         }
     }
 }

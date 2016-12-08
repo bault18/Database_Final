@@ -31,8 +31,8 @@
                 <TextBlock Text="Student Name: " Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14"/>
                 <TextBlock Name="stud_name" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"/>
 
-                <TextBlock Text="Email: " Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14"/>
-                <TextBlock Name="stud_email" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"/>
+                <TextBlock Text="Phone: " Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14"/>
+                <TextBlock Name="stud_phone" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"/>
 
                 <TextBlock Text="Credits: " Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14"/>
                 <TextBlock Name="num_credits" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"/>
@@ -53,17 +53,18 @@
                     <TextBlock Text="Instructions" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" TextDecorations="Underline"/>
                     <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" TextWrapping="Wrap" Text="   Select the courses that you want to automatically drop for the student then click 'Drop Classes'"/>
 
-                    <Button Name="drop_btn" Content="Drop Courses" FontSize="15" Grid.Row="2" Width="200" />
+                    <Button Name="drop_btn" Content="Drop Courses" FontSize="15" Grid.Row="2" Width="200" Click="drop_btn_Click"/>
                 </Grid>
             </DockPanel>
-            <ListView>
+            <ListView Name="student_courses_view">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Department" DisplayMemberBinding="{Binding ...}"/>
-                        <GridViewColumn Header="Class #" DisplayMemberBinding="{Binding ...}" />
-                        <GridViewColumn Header="Class Name" DisplayMemberBinding="{Binding ...}" Width="200"/>
-                        <GridViewColumn Header="Credits" DisplayMemberBinding="{Binding ...}"/>
-                        <GridViewColumn Header="Professor" DisplayMemberBinding="{Binding ...}" Width="100"/>
+                        <GridViewColumn Header="Department" DisplayMemberBinding="{Binding Department}"/>
+                        <GridViewColumn Header="Class #" DisplayMemberBinding="{Binding Class_number}" />
+                        <GridViewColumn Header="Section" DisplayMemberBinding="{Binding Section}"/>
+                        <GridViewColumn Header="Class Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                        <GridViewColumn Header="Prof First" DisplayMemberBinding="{Binding P_fname}" Width="75"/>
+                        <GridViewColumn Header="Prof Last" DisplayMemberBinding="{Binding P_lname}" Width="75"/>
                         <GridViewColumn Header="Drop" Width="50">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

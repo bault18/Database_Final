@@ -29,13 +29,23 @@
                                 <RowDefinition Height="50"/>
                                 <RowDefinition Height="50"/>
                                 <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Instructions" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" TextDecorations="Underline"/>
-                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" TextWrapping="Wrap" Text="   Select a single student from the right then select one of the buttons below to complete the action you want"/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Instructions" Grid.Row="0"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" TextDecorations="Underline"/>
+                            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" TextWrapping="Wrap" Text="   Select a single student from the right then select one of the buttons below to complete the action you want"/>
 
-                            <Button Name="moreInfoBttn" Content="More Information" Grid.Row="2" Width="120" Height="40" FontSize="15"/>
-                            <Button Name="dropBttn" Content="Remove Advisee" Grid.Row="4" Width="120" Height="40" FontSize="15" Background="#FFE24B4B" Click="dropBttn_Click"/>
+                            <Button Name="moreInfoBttn" Content="More Information" Grid.Row="2" Grid.ColumnSpan="2" Width="120" Height="40" FontSize="15" Click="moreInfoBttn_Click"/>
+                            <Button Name="dropBttn" Content="Remove Advisee" Grid.Row="4" Grid.ColumnSpan="2" Width="120" Height="40" FontSize="15" Background="#FFE24D4D" Click="dropBttn_Click"/>
+
+
+                            <TextBlock Name="confirm_text" Text="Are you sure you want to drop the selected students?" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14" TextWrapping="Wrap" Foreground="White"/>
+                            <Button Name="confirm_bttn" Content="Confirm"  Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderBrush="White" Foreground="White" Click="confirm_deny_Click" Width="75" Height="30" FontSize="14"/>
+                            <Button Name="cancel_bttn" Content="Cancel" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="White" Click="confirm_deny_Click" Width="75" Height="30" FontSize="14"/>
                         </Grid>
                     </DockPanel>
                     <ListView Name="advisees_list" Background="{x:Null}">

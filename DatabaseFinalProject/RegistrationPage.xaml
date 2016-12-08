@@ -126,10 +126,11 @@
             <TabItem Header="Edit Account Info" x:Name="edit_acc_info_tab">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="176*"/>
+                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="247*"/>
+                        <ColumnDefinition Width="246*"/>
+                        <ColumnDefinition Width="247*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -139,36 +140,36 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
+                    <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5">
                         <TextBlock Text="Edit your account information below" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Top" TextDecorations="Underline"/>
                     </DockPanel>
 
-                    <TextBlock Text="User First Name" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" TextDecorations="Underline"/>
-                    <TextBlock Name="display_f_name" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="18"/>
+                    <TextBlock Text="User First Name" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" TextDecorations="Underline" Grid.Column="1" Margin="4,0,179,0"/>
+                    <TextBlock Name="display_f_name" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="18" Margin="172,36,171,36"/>
 
-                    <TextBlock Text="User Last name" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" TextDecorations="Underline"/>
-                    <TextBlock Name="display_l_name" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="18"/>
+                    <TextBlock Text="User Last name" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" TextDecorations="Underline" Margin="183,0,182,0"/>
+                    <TextBlock Name="display_l_name" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="18" Margin="172,36,171,36"/>
 
-                    <TextBlock Text="ID Number" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" TextDecorations="Underline"/>
-                    <TextBlock Name="display_id" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="18"/>
+                    <TextBlock Text="ID Number" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" TextDecorations="Underline" Margin="200,0"/>
+                    <TextBlock Name="display_id" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="18" Margin="171,36,172,36"/>
 
-                    <TextBlock Text="Change Username" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19"/>
-                    <TextBox x:Name="change_username" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="14"/>
+                    <TextBlock Text="Change Username" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" Margin="170,0,169,0"/>
+                    <TextBox x:Name="change_username" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="14" Margin="172,36,171,36"/>
 
-                    <TextBlock Text="Change Password" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19"/>
-                    <TextBox x:Name="change_password" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="14"/>
+                    <TextBlock Text="Change Password" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" Margin="173,0,172,0"/>
+                    <TextBox x:Name="change_password" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="14" Margin="172,36,171,36"/>
 
-                    <TextBlock Text="Change Major" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19"/>
-                    <ComboBox x:Name="change_major" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Width="175" HorizontalContentAlignment="Center" Loaded="load_combobox"/>
+                    <TextBlock Text="Change Major" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" Margin="187,0"/>
+                    <ComboBox x:Name="change_major" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Width="175" HorizontalContentAlignment="Center" Loaded="load_combobox" Margin="159,36"/>
 
-                    <TextBlock Text="Change Address" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19"/>
-                    <TextBox Name="change_address" Grid.ColumnSpan="2"  Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Width="400"/>
+                    <TextBlock Text="Change Address" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" Grid.ColumnSpan="2" Margin="55,0,54,0"/>
+                    <TextBox Name="change_address" Grid.ColumnSpan="3"  Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Width="400" Margin="46,38,47,38"/>
 
-                    <TextBlock Text="Change Phone" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19"/>
-                    <TextBox Name="change_phone" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="14" PreviewTextInput="ValidateNumber"/>
+                    <TextBlock Text="Change Phone" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="19" Margin="185,0"/>
+                    <TextBox Name="change_phone" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="150" TextAlignment="Center" FontSize="14" PreviewTextInput="ValidateNumber" Margin="171,36,172,36"/>
 
-                    <Button x:Name="edit_acc_btn" Content="Update" Click="update_acc_btn" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="125" FontSize="15" Background="#FFDDDDDD"/>
-                    <TextBlock Name="update_success" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Top" Width="400" Height="15" TextAlignment="Center" Foreground="#FFAA1717" Margin="196,81,197,0" />
+                    <Button x:Name="edit_acc_btn" Content="Update" Click="update_acc_btn" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="125" FontSize="15" Background="#FFDDDDDD" Margin="184,23"/>
+                    <TextBlock Name="update_success" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Height="15" TextAlignment="Center" Foreground="#FFAA1717" Margin="46,0,47,0" />
                 </Grid>
 
 
