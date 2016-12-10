@@ -68,7 +68,7 @@
                 </DockPanel>
             </TabItem>
 
-            <TabItem Header="Personal Info" HorizontalAlignment="Right" Width="85">
+            <TabItem Header="Personal Info" Name="Personal_Info" HorizontalAlignment="Right" Width="85">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>
@@ -87,18 +87,25 @@
                     <TextBlock Text="Edit Acount Information" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" TextDecorations="underline"/>
                     <TextBlock Text="Username" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
                     <TextBox Name="change_user" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="20"/>
+                    
                     <TextBlock Text="Password" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
                     <PasswordBox Name="change_password" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="20"/>
+                    
                     <TextBlock Text="Phone number" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
                     <TextBlock Name="display_phone" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="20"/>
+                   
                     <TextBlock Text="First Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
                     <TextBlock Name="display_fname" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="20"/>
+                    
                     <TextBlock Text="Last Name" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
                     <TextBlock Name="display_lname" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="20"/>
+                    
                     <TextBlock Text="Email" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
                     <TextBlock Name="display_email" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="20"/>
+                    
                     <TextBlock Text="Start Date" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="20"/>
                     <TextBlock Name="display_startD" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="20"/>
+                    
                     <Button Name="update_btn" Content="Update" Click="update_btn_Click"  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="125" FontSize="15" Background="#FFDDDDDD" Margin="184,23"/>
                     
                     

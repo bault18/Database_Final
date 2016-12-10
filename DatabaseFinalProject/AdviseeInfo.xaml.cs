@@ -66,21 +66,24 @@ namespace DatabaseFinalProject
             {
                 var json = wc.DownloadString(url);
 
-                dynamic result = JArray.Parse(json);
-
-                foreach (dynamic tuple in result)
+                if (json != "null")
                 {
-                    string dept = tuple.Department;
-                    int cnum = tuple.Course_Number;
-                    int sect = tuple.Section_Number;
-                    string cname = tuple.Course_Name;
-                    int cred = tuple.Credits;
-                    string pfname = (tuple.First_Name == null) ? "Whitworth" : tuple.First_Name;
-                    string plname = (tuple.Last_Name == null) ? "Staff" : tuple.Last_Name;
-                    credits += cred;
+                    dynamic result = JArray.Parse(json);
 
-                    stud_courses.Add(new Classes(dept, cnum, sect, cname, cred, pfname, plname, 0));
+                    foreach (dynamic tuple in result)
+                    {
+                        string dept = tuple.Department;
+                        int cnum = tuple.Course_Number;
+                        int sect = tuple.Section_Number;
+                        string cname = tuple.Course_Name;
+                        int cred = tuple.Credits;
+                        string pfname = (tuple.First_Name == null) ? "Whitworth" : tuple.First_Name;
+                        string plname = (tuple.Last_Name == null) ? "Staff" : tuple.Last_Name;
+                        credits += cred;
 
+                        stud_courses.Add(new Classes(dept, cnum, sect, cname, cred, pfname, plname, 0));
+
+                    }
                 }
             }
             num_credits.Text = string.Format("{0}", credits);

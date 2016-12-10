@@ -134,7 +134,16 @@ namespace DatabaseFinalProject
                 view.SortDescriptions.Add(new SortDescription("L_name", ListSortDirection.Ascending));
                 view.SortDescriptions.Add(new SortDescription("F_name", ListSortDirection.Ascending));
             }
+            else if(selected.Name == "Personal_Info")
+            {
+                display_fname.Text = Registrar.get_shared_instance().Curr_Prof.Fname;
+                display_email.Text = Registrar.get_shared_instance().Curr_Prof.Email;
+                display_lname.Text = Registrar.get_shared_instance().Curr_Prof.Lname;
+                display_phone.Text = string.Format("{0}", Registrar.get_shared_instance().Curr_Prof.Phone_Num);
+                display_startD.Text = Registrar.get_shared_instance().Curr_Prof.StartDate;
+            }
         }
+        
 
         private void moreInfoBttn_Click(object sender, RoutedEventArgs e)
         {
@@ -148,7 +157,18 @@ namespace DatabaseFinalProject
 
         private void update_btn_Click(object sender, RoutedEventArgs e)
         {
+            string url = "http://cs1/whitnetacess/runSQLMSSQL.php?switchcontrol=14&id=" + Registrar.get_shared_instance().Curr_Prof.ID + "&user=" + change_user.Text + "&pass=" + change_password.Password;
 
+            using (var wc = new WebClient())
+            {
+                var output = wc.DownloadString(url);
+
+                if (output != "Complete")
+                {
+                    MessageBox.Show("*****ERROR***** \n Failed to update professor information.");
+                }
+
+            }
         }
     }
 }

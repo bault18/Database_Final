@@ -177,16 +177,24 @@ namespace DatabaseFinalProject
         private string fname;
         private string lname;
         private string uname;
+        private string email;
+        private long phone_num;
+        private string startDate;
+        private string office_hr;
         private List<Student> advisees;
 
         #endregion
 
         //constructor
-        public Professor(int iden, string first_name, string last_name, string username) {
+        public Professor(int iden, string first_name, string last_name, string username, string em, long phone, string SD, string Office) {
             id = iden;
             fname = first_name;
             lname = last_name;
             uname = username;
+            email = em;
+            phone_num = phone;
+            startDate = SD;
+            office_hr = Office;
         }
 
 
@@ -205,6 +213,27 @@ namespace DatabaseFinalProject
             get { return uname; }
             set { uname = value; }
         }
+
+        public string Email
+        {
+            get { return email; }
+        }
+
+        public long Phone_Num
+        {
+            get { return phone_num; }
+        }
+
+        public string StartDate
+        {
+            get { return startDate; }
+        }
+
+        public string Office_hr
+        {
+            get { return office_hr; }
+        }
+
 
         public List<Student> Advisees
         {
@@ -303,9 +332,13 @@ namespace DatabaseFinalProject
                         dynamic result = JArray.Parse(json);
                         int id = result[0].ID;
                         string fname = result[0].First_Name;
-                        string lname = result[0].Last_name;
+                        string lname = result[0].Last_Name;
+                        string email = (result[0].Email == null) ? "None" : result[0].Email;
+                        long phone = (result[0].Phone_Number == null) ? 0 : result[0].Phone_Number;
+                        string start = (result[0].Start_Date == null) ? "None" : result[0].Start_Date;
+                        string Off = (result[0].Office_Hour == null) ? "None" : result[0].Office_Hour;
 
-                        curr_professor = new Professor(id, fname, lname, user);
+                        curr_professor = new Professor(id, fname, lname, user, email, phone, start, Off);
                         return true;
                     }
                 }
