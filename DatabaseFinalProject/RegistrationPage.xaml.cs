@@ -219,7 +219,11 @@ namespace DatabaseFinalProject
                             var output = wc.DownloadString(url);
 
                             //check for successful insertion
-                            if(output != "Complete")
+                            if (output == "Credit limit reached")
+                                MessageBox.Show("*****WARNING***** \nYou are already registered for more than 17 credits. Please see your advisor to take more.");
+                            else if (output == "Already Registered")
+                                MessageBox.Show("You are already registered for another section of: " + course.Name);
+                            else if (output != "Complete")
                                 MessageBox.Show("*****ERROR***** \nFailed to register for course: " + course.Name);
                         }
                     }

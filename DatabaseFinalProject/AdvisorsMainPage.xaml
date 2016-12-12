@@ -106,7 +106,7 @@
                     <TextBlock Text="Start Date" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="20"/>
                     <TextBlock Name="display_startD" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="20"/>
                     
-                    <Button Name="update_btn" Content="Update" Click="update_btn_Click"  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="125" FontSize="15" Background="#FFDDDDDD" Margin="184,23"/>
+                    <Button Name="update_btn" Content="Update" Click="update_btn_Click"  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="125" FontSize="15" Background="#FFDDDDDD"/>
                     
                     
                 </Grid>

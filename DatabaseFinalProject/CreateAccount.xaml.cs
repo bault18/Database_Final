@@ -38,10 +38,10 @@ namespace DatabaseFinalProject
                 {
                     var output= wc.DownloadString(url);
 
-                    if(output != "Complete")
-                    {
-                        MessageBox.Show("*****ERROR*****\nFailed to create account");
-                    }
+                    if (output == "account exists")
+                        MessageBox.Show("This Username has already been claimed");
+                    else if (output != "Complete")
+                        MessageBox.Show("*****ERROR***** \nTechincal issue. Failed to create account.");
                     else
                     {
                         new MainWindow().Show();
